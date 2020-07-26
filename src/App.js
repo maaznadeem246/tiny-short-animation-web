@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-        Tiny Short Animation Website
+        Tiny Short Animation Website.
     </div>
   );
 }
