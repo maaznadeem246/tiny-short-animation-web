@@ -63,7 +63,7 @@ function Header(){
                         <MenuIcon />
                     </IconButton> */}
                     <Typography variant="h6" className={classes.title}>
-                       Future Technologies
+                       Future Tech
                     </Typography>
                     <Typography className={classes.links}>
                         <Link href="#" onClick={preventDefault}>
