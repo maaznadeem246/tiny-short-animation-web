@@ -72,6 +72,13 @@ function AnimatedText(){
                     visibility: "visible"
                 },
                 {
+                    transform: "translate3d(0, 20%, 0)",
+                },
+            
+                {
+                    transform: "translate3d(0, 10%, 0)",
+                },
+                {
                     offset: animateOffset,
                     transform: "translate3d(0, 0, 0)",
                     visibility: "visible"
@@ -120,11 +127,11 @@ function AnimatedText(){
 
     const firstLine = useWebAnimations(animationObject(50,0.1));
 
-    const secondLine = useWebAnimations(animationObject(200,0.1));
+    const secondLine = useWebAnimations(animationObject(200,0.2));
 
-    const thirdLine = useWebAnimations(animationObject(300,0.1));
+    const thirdLine = useWebAnimations(animationObject(300,0.3));
 
-    const bottomLine = useWebAnimations(animationObject(300, 0.2));
+    const bottomLine = useWebAnimations(animationObject(400, 0.4));
 
 
     useEffect(()=>{
