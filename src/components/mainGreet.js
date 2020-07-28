@@ -66,9 +66,11 @@ const useStyles = makeStyles((theme) => ({
         paddingRight:20,
     },
     backgroundAnimated:{
-        height:'100%',
-        width:'100%',
-
+        height:'97%',
+        width:'97%',
+        margin:'auto',
+        position: 'absolute',
+        border:'1px solid'
     }
 
   
@@ -100,6 +102,38 @@ function AnimatedText(){
         thirdLine:'',
     })
    
+    // const animatedBackground = useWebAnimations({
+    //     keyframes:[
+    //         {
+    //             offset: 0,
+    //             transform: "translate3d(0%, 0, 0)",
+    //             visibility: "visible"
+    //         },
+    //         {
+    //             offset: 0.1,
+    //             transform: "translate3d(100%, 0, 0)",
+    //             visibility: "visible"
+    //         },
+    //         {
+    //             offset: 0.92,
+    //             transform: "translate3d(100%, 0, 0)",
+    //             visibility: "visible",
+    //             opacity: 1,
+    //         },
+    //         // {
+    //         //     opacity: 0.7
+    //         // },
+    //         // {
+    //         //     opacity: 0.3
+    //         // },
+    //         {
+    //             offset: 1,
+    //             transform: "translate3d(0%, 0, 0)",
+    //             visibility: "hidden"
+    //         }   
+    //     ],
+        
+    // })
 
     const animationObject = (delayTime, animateOffset) => {
         return {
@@ -219,7 +253,9 @@ function AnimatedText(){
 
 //    console.log(slideInUp)
     return(
-        <div>
+        <div style={{
+             position: 'relative', width: 'inherit', margin: 10,
+        }}>
         <div className={classes.backgroundAnimated} />
         <div className={classes.animatedText}>
  
@@ -250,6 +286,7 @@ function AnimatedText(){
                 </div>
             </div>
         </div>
+      
         </div>
     )
 }
