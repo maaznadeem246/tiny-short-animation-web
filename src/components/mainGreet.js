@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom:30,
         paddingRight:30,
         paddingLeft: 30,
-        fontSize:30,
+        fontSize:25,
         fontWeight:700,
         color:theme.typography.color,
     },
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
     animatedBottomDiv:{
         display:'flex',
-        fontSize: 17,
+        fontSize: 16,
         paddingTop:60,
         justifyContent:'space-between',
     },
@@ -68,17 +68,31 @@ const useStyles = makeStyles((theme) => ({
     backgroundAnimated:{
         height:'100%',
         width:'100%',
-        background: 'linear-gradient(150deg, rgba(145,198,145,1) 40%, rgba(255,255,255,1) 79%)',
+        background: 'linear-gradient(145deg, rgba(145,198,145,1) 0%, rgba(255,255,255,1) 86%)',
         position: 'absolute',
         borderRadius:5,
         zIndex: -1,
+        display: 'flex',
+        alignItems:'flex-end',
+    },
+    animatedDiv:{
+        position: 'relative', width: '90%', margin: 'auto',
+        paddingTop:60,
+        paddingbottom:60,
+    },
+    insideAnimated:{
+        backgroundColor: theme.typography.color,
+        width:'100%',
+        height:'40px',
+        margin:20,
+        borderRadius:5,
     }
 
   
 }));
 
 
-function AnimatedText(){
+function AnimatedFadeText(){
     const classes = useStyles();
     const firstTextArray = [
         '0Lorem Ipsum is simply dummy text ',
@@ -103,49 +117,7 @@ function AnimatedText(){
         thirdLine:'',
     })
    
-    const animatedBackground = useWebAnimations({
-        keyframes:[
-            {
-                offset: 0,
-                width:'0%',
-                opacity:'0',
-                visibility: "visible"
-            },
-            {
-                opacity:0.5
-            },
-            {
-                offset: 0.1,
-                opacity:1,
-                width: '100%',
-                visibility: "visible"
-            },
-            {
-                offset: 0.92,
-                width: '100%',
-                visibility: "visible",
-                opacity: 1,
-            },
-            ,
-            {
-                opacity: 0.5
-            },
-            {
-                opacity:0,
-                width: '0%',
-                visibility: "hidden"
-            }   
-        ],
-        timing: {
-            delay: 80,
-            duration: 4000 - 80,
-            fill: "both",
-            ease: 'ease'
-            //cubic-bezier(0.0, 0.0, 1.0, 0.95)
-        },
-        autoPlay: false,
-        
-    })
+
 
     const animationObject = (delayTime, animateOffset) => {
         return {
@@ -161,7 +133,7 @@ function AnimatedText(){
                     visibility: "visible"
                 },
                 {
-                    offset: 0.92,
+                    offset: 0.9,
                     transform: "translate3d(0, 0, 0)",
                     visibility: "visible",
                     opacity:1,
@@ -182,7 +154,7 @@ function AnimatedText(){
             ,
             timing: {
                 delay:delayTime,
-                duration: 4000 - delayTime,
+                duration: 5000 - delayTime,
                 fill: "both",
                 ease:'ease'
 //cubic-bezier(0.0, 0.0, 1.0, 0.95)
@@ -208,19 +180,61 @@ function AnimatedText(){
         }
     }
 
-    const firstLine = useWebAnimations(animationObject(100,0.1));
+    const firstLine = useWebAnimations(animationObject(150,0.1));
 
-    const secondLine = useWebAnimations(animationObject(150,0.2));
+    const secondLine = useWebAnimations(animationObject(180,0.2));
 
-    const thirdLine = useWebAnimations(animationObject(200,0.3));
+    const thirdLine = useWebAnimations(animationObject(210,0.3));
 
-    const bottomLine = useWebAnimations(animationObject(250, 0.35));
+    const bottomLine = useWebAnimations(animationObject(230, 0.35));
 
-    
+    const animatedBackground = useWebAnimations({
+        keyframes: [
+            {
+                offset: 0,
+                width: '0%',
+                opacity: '0',
+                visibility: "visible"
+            },
+            {
+                opacity: 0.5
+            },
+            {
+                offset: 0.1,
+                opacity: 1,
+                width: '100%',
+                visibility: "visible"
+            },
+            {
+                offset: 0.9,
+                width: '100%',
+                visibility: "visible",
+                opacity: 1,
+            },
+            ,
+            {
+                opacity: 0.5
+            },
+            {
+                opacity: 0,
+                width: '0%',
+                visibility: "hidden"
+            }
+        ],
+        timing: {
+            delay:50,
+            duration: 5000 - 50,
+            fill: "both",
+            ease: 'ease'
+            //cubic-bezier(0.0, 0.0, 1.0, 0.95)
+        },
+        autoPlay: false,
+
+    })    
 
     useEffect(()=>{
         // animate()
-       // console.log(firstTextArray[count])
+        // console.log(animatedBackground.getAnimation().effect.getTiming().duration)
         updateText({
             firstLine:firstTextArray[count],
             secondLine:secondTextArray[count],
@@ -268,10 +282,10 @@ function AnimatedText(){
 
 //    console.log(slideInUp)
     return(
-        <div style={{
-             position: 'relative', width: 'inherit', margin: 10,
-        }}>
-            <div ref={animatedBackground.ref} className={classes.backgroundAnimated} />
+        <div className={classes.animatedDiv}>
+            <div ref={animatedBackground.ref} className={classes.backgroundAnimated} >
+                <div className={classes.insideAnimated}></div>
+            </div>
         <div className={classes.animatedText}>
  
             <div className={classes.animatedLine}>
@@ -306,6 +320,13 @@ function AnimatedText(){
     )
 }
 
+const AnimatedOneText = () => {
+    return (
+        <div>
+        
+        </div>
+    )
+}
 
 function MainGreet(){
     const classes = useStyles();
@@ -313,9 +334,9 @@ function MainGreet(){
     return (
         <div className={classes.root}>
             <Grid container >
-                <Grid item xs={12} sm={12} md={6} lg={6}>1</Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6}></Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
-                    <AnimatedText />
+                    <AnimatedFadeText />
                 </Grid>
             </Grid>            
         </div>

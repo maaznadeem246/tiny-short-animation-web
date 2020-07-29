@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme) => ({
 
     },
     appBar:{
-        backgroundColor: 'white',
-        color: theme.typography.color,
+        backgroundColor: theme.typography.color,
+        color: 'rgba(145,198,145)',
         display:'flex',
-     
+
 
     },
     menuButton: {
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
         padding:10,
         fontSize:25,
         flexGrow:1,
+
     },
     links:{
         fontSize: 20,
@@ -65,7 +66,7 @@ function Header(){
                     <Typography variant="h6" className={classes.title}>
                        Future Tech
                     </Typography>
-                    <Typography className={classes.links}>
+                    {/* <Typography className={classes.links}>
                         <Link href="#" onClick={preventDefault}>
                             Home
                         </Link>
@@ -75,7 +76,7 @@ function Header(){
                         <Link href="#" onClick={preventDefault}>
                             Blog
                         </Link>
-                    </Typography>
+                    </Typography> */}
                 </Toolbar>
             </AppBar>
         </div>
