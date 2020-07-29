@@ -66,11 +66,12 @@ const useStyles = makeStyles((theme) => ({
         paddingRight:20,
     },
     backgroundAnimated:{
-        height:'97%',
-        width:'97%',
-        margin:'auto',
+        height:'100%',
+        width:'100%',
+        background: 'linear-gradient(150deg, rgba(145,198,145,1) 40%, rgba(255,255,255,1) 79%)',
         position: 'absolute',
-        border:'1px solid'
+        borderRadius:5,
+        zIndex: -1,
     }
 
   
@@ -102,38 +103,49 @@ function AnimatedText(){
         thirdLine:'',
     })
    
-    // const animatedBackground = useWebAnimations({
-    //     keyframes:[
-    //         {
-    //             offset: 0,
-    //             transform: "translate3d(0%, 0, 0)",
-    //             visibility: "visible"
-    //         },
-    //         {
-    //             offset: 0.1,
-    //             transform: "translate3d(100%, 0, 0)",
-    //             visibility: "visible"
-    //         },
-    //         {
-    //             offset: 0.92,
-    //             transform: "translate3d(100%, 0, 0)",
-    //             visibility: "visible",
-    //             opacity: 1,
-    //         },
-    //         // {
-    //         //     opacity: 0.7
-    //         // },
-    //         // {
-    //         //     opacity: 0.3
-    //         // },
-    //         {
-    //             offset: 1,
-    //             transform: "translate3d(0%, 0, 0)",
-    //             visibility: "hidden"
-    //         }   
-    //     ],
+    const animatedBackground = useWebAnimations({
+        keyframes:[
+            {
+                offset: 0,
+                width:'0%',
+                opacity:'0',
+                visibility: "visible"
+            },
+            {
+                opacity:0.5
+            },
+            {
+                offset: 0.1,
+                opacity:1,
+                width: '100%',
+                visibility: "visible"
+            },
+            {
+                offset: 0.92,
+                width: '100%',
+                visibility: "visible",
+                opacity: 1,
+            },
+            ,
+            {
+                opacity: 0.5
+            },
+            {
+                opacity:0,
+                width: '0%',
+                visibility: "hidden"
+            }   
+        ],
+        timing: {
+            delay: 80,
+            duration: 4000 - 80,
+            fill: "both",
+            ease: 'ease'
+            //cubic-bezier(0.0, 0.0, 1.0, 0.95)
+        },
+        autoPlay: false,
         
-    // })
+    })
 
     const animationObject = (delayTime, animateOffset) => {
         return {
@@ -170,7 +182,7 @@ function AnimatedText(){
             ,
             timing: {
                 delay:delayTime,
-                duration: 4500 - delayTime,
+                duration: 4000 - delayTime,
                 fill: "both",
                 ease:'ease'
 //cubic-bezier(0.0, 0.0, 1.0, 0.95)
@@ -204,6 +216,7 @@ function AnimatedText(){
 
     const bottomLine = useWebAnimations(animationObject(250, 0.35));
 
+    
 
     useEffect(()=>{
         // animate()
@@ -214,6 +227,7 @@ function AnimatedText(){
             thirdLine: thirdTextArray[count],
         })
         //console.log('effect')
+        animatedBackground.getAnimation().play()
         firstLine.getAnimation().play();
         secondLine.getAnimation().play();
         thirdLine.getAnimation().play();
@@ -222,6 +236,7 @@ function AnimatedText(){
     },[count])
 
     const changeItButton = (num) => {
+        animatedBackground.getAnimation().finish()
         firstLine.getAnimation().finish();
         secondLine.getAnimation().finish();
         thirdLine.getAnimation().finish();
@@ -230,7 +245,7 @@ function AnimatedText(){
         updateCount(num)
     }
     const changeIt = (v) => {
-      
+        animatedBackground.getAnimation().finish()
         firstLine.getAnimation().finish();
         secondLine.getAnimation().finish();
         thirdLine.getAnimation().finish();
@@ -256,7 +271,7 @@ function AnimatedText(){
         <div style={{
              position: 'relative', width: 'inherit', margin: 10,
         }}>
-        <div className={classes.backgroundAnimated} />
+            <div ref={animatedBackground.ref} className={classes.backgroundAnimated} />
         <div className={classes.animatedText}>
  
             <div className={classes.animatedLine}>
