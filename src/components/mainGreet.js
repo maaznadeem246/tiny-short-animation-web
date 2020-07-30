@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from "react"
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import useWebAnimations, {slideInUp,slideOutDown} from "@wellyshen/use-web-animations";
+import useWebAnimations, {bounce,slideOutDown} from "@wellyshen/use-web-animations";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import IconButton from '@material-ui/core/IconButton';
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     animatedDiv:{
         position: 'relative', width: '90%', margin: 'auto',
         paddingTop:60,
-        paddingbottom:60,
+        paddingBottom:60,
     },
     insideAnimated:{
         backgroundColor: theme.typography.color,
@@ -86,6 +86,68 @@ const useStyles = makeStyles((theme) => ({
         height:'40px',
         margin:20,
         borderRadius:5,
+    },
+
+    animmatdCircleBackground:{
+        width:'450px',
+        height:'450px',
+        backgroundColor: theme.typography.color,
+        borderRadius:"100%",
+        position:'absolute',
+        zIndex: -1,
+
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+    },
+
+    animatedOneText:{
+        position: 'relative', 
+        width: '90%', 
+        height: '100%',
+        margin: 'auto',
+        paddingTop: 60,
+        paddingBottom: 60,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow:'hidden',
+    },
+    animatedOneInText:{
+        color:'rgba(145,198,145,1)',
+        fontSize:20
+    },
+    animatedOneInText2: {
+        color: 'rgba(145,198,145,1)',
+        fontSize: 35
+    },
+    animatedOneTextDiv:{
+        textAlign:'left',
+        marginTop:-90,
+    },
+    animatedSmall:{
+        width:400,
+        height:400,
+        position:'absolute',
+ 
+        borderRadius:'100%',
+        border:'10px solid rgba(145,198,145,1)',
+        // borderBottom:'10px solid black',
+        // borderRight:'10px solid black',
+        // transform:'rotate3d(1, 0, 0, 45deg) '
+    },
+    animatedSmallInside:{
+        width:20,
+        height:20,
+        position:'absolute',
+        borderRadius:'100%',
+        border: '20px solid rgba(145,198,145,1)',
+        
+        transform:'translateY(-100%)'
+    },
+    animatedSmallDiv:{
+        width:"100%",    
+        height:'100%'
     }
 
   
@@ -321,9 +383,107 @@ function AnimatedFadeText(){
 }
 
 const AnimatedOneText = () => {
-    return (
-        <div>
+    const classes = useStyles()
+    let animatedBackgroundSamll = useWebAnimations({
+            keyframes: [
+                {
+                    
+                    transform: 'translateY(0%)'
+                },
+            {
+                offset: 0.1,
+                    transform: 'translateY(-60%)'
+                }
+
+            ],
+            timing: {
+                delay:2000,
+                duration:600,
+                fill: "both",
+                ease: 'ease',
+                // direction: "alternate",
+                // iterations: Infinity,
+                //cubic-bezier(0.0, 0.0, 1.0, 0.95)
+            },
+            autoPlay: false,
+           
+        })
+
+
+    let animatedOneBackground = useWebAnimations({
+        keyframes: [
+            {
+                transform:"translateY(0%)"
+            },
+            {
+                transform: "translateY(-10%)"
+            }
+            ,
+            {
+                transform: "translateY(0%)"
+            }
+
+        ],
+        timing: {
+            delay: 50,
+            duration: 2000,
+            fill: "both",
+            ease: 'ease',
+            // iterations: Infinity,
+            //cubic-bezier(0.0, 0.0, 1.0, 0.95)
+        },
+        autoPlay: true,
+        onUpdate: ({ playState, animate, animation }) => {
+            // Triggered when the animation enters the running state or changes state
+//            console.log((animation.effect.getTiming().duration / 2)+4 == Math.ceil(animation.currentTime))
+            if (playState == 'running' && (animation.effect.getTiming().duration / 2)+4 == Math.ceil(animation.currentTime) ){
+  //              console.log(animation.effect.getTiming().duration / 2 == Math.ceil(animation.currentTime))
+                console.log(Math.ceil(animation.currentTime))
+                animation.pause()
+            }
+        },
+    }) 
+
+    let animatedSmallDiv = useWebAnimations({
+        keyframes: [
+            {
+                transform: 'rotateZ(360deg)',
+
+            }
+
+        ],
+        timing: {
+            delay: 50,
+            duration: 2000,
+            fill: "both",
+            ease: 'ease',
+            iterations: Infinity,
+            //cubic-bezier(0.0, 0.0, 1.0, 0.95)
+        },
+        autoPlay: true,
         
+    }) 
+
+    return (
+        <div className={classes.animatedOneText}>
+            <div ref={animatedOneBackground.ref}  className={classes.animmatdCircleBackground}>
+                <div ref={animatedSmallDiv.ref} className={classes.animatedSmallDiv}>
+                    <div className={classes.animatedSmall}>
+
+                    </div>
+                </div>
+                <div ref={animatedBackgroundSamll.ref} className={classes.animatedSmallInside}>
+
+                </div>
+            </div>
+            <div className={classes.animatedOneTextDiv}>
+                <div className={classes.animatedOneInText}>
+                HI, We are Future Tech,
+                </div>
+                <div className={classes.animatedOneInText2}>
+                    We're here to help you
+                </div>
+            </div>
         </div>
     )
 }
@@ -334,7 +494,9 @@ function MainGreet(){
     return (
         <div className={classes.root}>
             <Grid container >
-                <Grid item xs={12} sm={12} md={6} lg={6}></Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6}>
+                    <AnimatedOneText />
+                </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
                     <AnimatedFadeText />
                 </Grid>
