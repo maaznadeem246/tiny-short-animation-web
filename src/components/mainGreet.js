@@ -201,6 +201,7 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.down('xs')]: {
             height: '320px',
+            width: '100%', 
         },
         '@media only screen and (max-width: 375px)': {
             height: '260px',
@@ -244,8 +245,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop:-90,
     },
     animatedSmall:{
-        width:350,
-        height:350,
+        width:390,
+        height:340,
         position:'absolute',
  
         borderRadius:'100%',
@@ -254,18 +255,18 @@ const useStyles = makeStyles((theme) => ({
         // borderRight:'10px solid black',
         // transform:'rotate3d(1, 0, 0, 45deg) '
         [theme.breakpoints.only('xs')]: {
-            width: '300px',
-            height: '300px',
+            width: '340px',
+            height: '290px',
         },
         '@media only screen and (max-width: 375px)': {
-            width: '250px',
-            height: '250px',
+            width: '290px',
+            height: '240px',
             borderWidth: 9,
         },
 
         '@media only screen and (max-width: 320px)': {
-            width: '220px',
-            height: '220px',
+            width: '260px',
+            height: '210px',
             borderWidth: 8,
         }
     },
@@ -307,8 +308,52 @@ const useStyles = makeStyles((theme) => ({
             width:'0.8em',
             height:'0.8em'
         }
-    }
+    },
 
+    ggBulb :{
+        boxSizing: 'border-box',
+        position: 'relative',
+        display: 'block',
+        transform: 'scale(var(--ggs, 1))',
+        width: 16,
+        height: 16,
+        border: '2px solid',
+        borderBottomColor: 'transparent',
+        borderRadius: 100,
+
+        '&::after': {
+            content: "",
+            display: 'block',
+            boxSizing:' border-box',
+            position: 'absolute',
+        },
+        '&::before': {
+            content: "",
+            display: 'block',
+            boxSizing: 'border-box',
+            position: 'absolute',
+        },
+        '&::before':{
+            borderTop: 0,
+            borderBottomLeftRadius: 18,
+            borderBottomRightRadius: 18,
+            top: 10,
+            borderBottom: '2px solid transparent',
+            boxShadow:'0 5px 0 -2px, inset 2px 0 0 0, inset -2px 0 0 0, inset 0 -4px 0 -2px',
+            width: 8,
+            height: 8,
+            left: 2,
+        },
+        '&::after':{
+            width: 12,
+            height: 2,
+            borderLeft: '3px solid',
+            borderRight: '3px solid',
+            borderRadius: 2,
+            bottom: 0,
+            left: 0,
+        }
+    },
   
 }));
 
@@ -669,7 +714,11 @@ const AnimatedOneText = () => {
 
     return (
         <div className={classes.animatedOneText}>
+            {/* <div className={classes.aniamtedBulbDiv}>
+                <div className={classes.ggBulb}></div>
+            </div> */}
             <div ref={animatedOneBackground.ref}  className={classes.animmatdCircleBackground}>
+               
                 <div ref={animatedSmallDiv.ref} className={classes.animatedSmallDiv}>
                     <div className={classes.animatedSmall}>
 
