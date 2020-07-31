@@ -43,6 +43,15 @@ const useStyles = makeStyles((theme) => ({
         overflow:'hidden',
         paddingTop:4,
         paddingBottom:4,
+        '@media only screen and (max-width: 375px)': {
+    
+            paddingBottom: 1,
+        },
+
+        '@media only screen and (max-width: 320px)': {
+            
+            paddingBottom: 1,
+        }
     },
     animatedBottomDiv:{
         display:'flex',
@@ -271,6 +280,13 @@ const useStyles = makeStyles((theme) => ({
     animatedSmallDiv:{
         width:"100%",    
         height:'100%'
+    },
+    mDiv:{
+        [theme.breakpoints.down('sm')]: {
+            paddingBottom: 100 
+        }
+
+
     }
 
   
@@ -664,7 +680,7 @@ function MainGreet(){
                 <Grid item xs={12} sm={12} md={6} lg={6}>
                     <AnimatedOneText />
                 </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6}>
+                <Grid item xs={12} sm={12} md={6} lg={6} className={classes.mDiv}>
                     <AnimatedFadeText />
                 </Grid>
             </Grid>            
