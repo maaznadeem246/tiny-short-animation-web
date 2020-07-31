@@ -89,8 +89,8 @@ const useStyles = makeStyles((theme) => ({
     },
 
     animmatdCircleBackground:{
-        width:'450px',
-        height:'450px',
+        width:'400px',
+        height:'400px',
         backgroundColor: theme.typography.color,
         borderRadius:"100%",
         position:'absolute',
@@ -119,15 +119,15 @@ const useStyles = makeStyles((theme) => ({
     },
     animatedOneInText2: {
         color: 'rgba(145,198,145,1)',
-        fontSize: 35
+        fontSize: 30
     },
     animatedOneTextDiv:{
         textAlign:'left',
         marginTop:-90,
     },
     animatedSmall:{
-        width:400,
-        height:400,
+        width:350,
+        height:350,
         position:'absolute',
  
         borderRadius:'100%',
@@ -157,20 +157,20 @@ const useStyles = makeStyles((theme) => ({
 function AnimatedFadeText(){
     const classes = useStyles();
     const firstTextArray = [
-        '0Lorem Ipsum is simply dummy text ',
-        '1Lorem Ipsum is simply ',
-        '2Lorem Ipsum is simply dummy '
+        'We proive multiple Tech Services ',
+        'We Provide AI service ',
+        'We provide Cloud Services '
     ]
     const secondTextArray = [
-        'Lorem Ipsum is simply dummy text of the.',
-        'Lorem Ipsum is simply dummy text',
-        'Lorem Ipsum is simply ',
+        'We have Mulpile API Services Also',
+        'Contact Us for your',
+        'We provide new Tech',
         
     ]
     const thirdTextArray = [
-        'Lorem Ipsum is simply',
-        'Lorem Ipsum is simply dummy',
-        'Lorem Ipsum is simply dummy text of the.',
+        'We also have SMS API',
+        'New Business',
+        'Like Serverless',
     ]
     const [count, updateCount] = useState(0)    
     const [text, updateText] = useState({
@@ -384,31 +384,59 @@ function AnimatedFadeText(){
 
 const AnimatedOneText = () => {
     const classes = useStyles()
+    const [pauseValue,setPausevalue] = useState(16);
+
     let animatedBackgroundSamll = useWebAnimations({
-            keyframes: [
-                {
-                    
-                    transform: 'translateY(0%)'
-                },
+        keyframes: [
             {
-                offset: 0.1,
-                    transform: 'translateY(-60%)'
-                }
 
-            ],
-            timing: {
-                delay:2000,
-                duration:600,
-                fill: "both",
-                ease: 'ease',
-                // direction: "alternate",
-                // iterations: Infinity,
-                //cubic-bezier(0.0, 0.0, 1.0, 0.95)
+                transform: 'translateY(0%)'
             },
-            autoPlay: false,
-           
-        })
+            {
+                
+                transform: 'translateY(-60%)'
+            },{
+                transform: 'translateY(0%)'
+            }
 
+        ],
+        timing: {
+
+            duration: 400,
+            fill: "both",
+            ease: 'ease',
+            direction: "alternate",
+            // iterations: Infinity,
+            //cubic-bezier(0.0, 0.0, 1.0, 0.95)
+        },
+        autoPlay: false,
+        onUpdate: ({ playState, animate, animation }) => {
+            // animatedOneBackground.getAnimation()
+  
+             if(playState=='finished' && !animation.pending && pauseValue != 0){
+                 console.log(animatedOneBackground.getAnimation())
+            //      animatedOneBackground.getAnimation().play()
+            //      setPausevalue((pauseValue) => pauseValue + Math.ceil(animatedOneBackground.getAnimation().currentTime) + 100)
+                 animatedOneBackground.animate({
+                     keyframes: [
+                         {
+                             transform: "translateY(-" + pauseValue+"%)"
+                         }
+
+                     ],
+                     timing: {
+                         duration: 500,
+                         fill: "both",
+                         ease: 'ease',
+                         // iterations: Infinity,
+                         //cubic-bezier(0.0, 0.0, 1.0, 0.95)
+                     }
+                 }) 
+                 setPausevalue((pauseValue) => pauseValue - 2)    
+        }
+
+        },
+    })
 
     let animatedOneBackground = useWebAnimations({
         keyframes: [
@@ -416,17 +444,13 @@ const AnimatedOneText = () => {
                 transform:"translateY(0%)"
             },
             {
-                transform: "translateY(-10%)"
-            }
-            ,
-            {
-                transform: "translateY(0%)"
+                transform: "translateY(-16%)"
             }
 
         ],
         timing: {
             delay: 50,
-            duration: 2000,
+            duration: 1800,
             fill: "both",
             ease: 'ease',
             // iterations: Infinity,
@@ -435,14 +459,26 @@ const AnimatedOneText = () => {
         autoPlay: true,
         onUpdate: ({ playState, animate, animation }) => {
             // Triggered when the animation enters the running state or changes state
+            // console.log(pauseValue)
+            // console.log(Math.ceil(animation.currentTime))
 //            console.log((animation.effect.getTiming().duration / 2)+4 == Math.ceil(animation.currentTime))
-            if (playState == 'running' && (animation.effect.getTiming().duration / 2)+4 == Math.ceil(animation.currentTime) ){
-  //              console.log(animation.effect.getTiming().duration / 2 == Math.ceil(animation.currentTime))
-                console.log(Math.ceil(animation.currentTime))
-                animation.pause()
+//             if (playState == 'running' && (animation.effect.getTiming().duration / 2) + 4 == Math.ceil(animation.currentTime) ){
+//   //              console.log(animation.effect.getTiming().duration / 2 == Math.ceil(animation.currentTime))
+//                 console.log(Math.ceil(animation.currentTime))
+//                 animation.pause()
+     
+     
+
+//             } else
+            if (playState == 'finished') {
+                animatedBackgroundSamll.getAnimation().play()
+
             }
         },
     }) 
+
+
+
 
     let animatedSmallDiv = useWebAnimations({
         keyframes: [
@@ -461,8 +497,16 @@ const AnimatedOneText = () => {
             //cubic-bezier(0.0, 0.0, 1.0, 0.95)
         },
         autoPlay: true,
-        
+
     }) 
+
+    useEffect(()=>{
+        if(pauseValue == 0){
+            setPausevalue(16)
+            animatedOneBackground.getAnimation().finish()
+            animatedOneBackground.getAnimation().play()
+        }
+    }, [pauseValue])
 
     return (
         <div className={classes.animatedOneText}>
