@@ -20,6 +20,24 @@ const useStyles = makeStyles((theme) => ({
         fontSize:25,
         fontWeight:700,
         color:theme.typography.color,
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 20,
+            paddingTop: 30,
+            paddingBottom: 20,
+            paddingRight: 20,
+            paddingLeft: 20,
+        },
+        '@media only screen and (max-width: 375px)': {
+            fontSize: 17,
+            paddingTop: 25,
+            paddingBottom: 15,
+            paddingRight: 15,
+            paddingLeft: 15,
+        },
+
+        '@media only screen and (max-width: 320px)': {
+            fontSize: 15,
+        }
     },
     animatedLine:{
         overflow:'hidden',
@@ -30,7 +48,24 @@ const useStyles = makeStyles((theme) => ({
         display:'flex',
         fontSize: 16,
         paddingTop:60,
+        paddingBottom: 15,
         justifyContent:'space-between',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 14,
+            paddingTop: 30,
+            paddingBottom: 20,
+        },
+        '@media only screen and (max-width: 375px)': {
+            fontSize: 13,
+            paddingTop: 25,
+            paddingBottom: 20,
+        },
+
+        '@media only screen and (max-width: 320px)': {
+            fontSize: 12,
+
+            paddingBottom: 15,
+        }
     },
     animatedBottomLine:{
         overflow:'hidden'
@@ -74,11 +109,14 @@ const useStyles = makeStyles((theme) => ({
         zIndex: -1,
         display: 'flex',
         alignItems:'flex-end',
+        
     },
     animatedDiv:{
         position: 'relative', width: '90%', margin: 'auto',
         paddingTop:60,
-        paddingBottom:60,
+        [theme.breakpoints.down('md')]: {
+            paddingTop: 20,
+        },
     },
     insideAnimated:{
         backgroundColor: theme.typography.color,
@@ -86,6 +124,20 @@ const useStyles = makeStyles((theme) => ({
         height:'40px',
         margin:20,
         borderRadius:5,
+        [theme.breakpoints.down('md')]: {
+        
+            height: '30px',
+            margin: 15,
+        },
+        '@media only screen and (max-width: 375px)': {
+            height: '28px',
+            margin: 13,
+        },
+
+        '@media only screen and (max-width: 320px)': {
+            height: '23px',
+            margin: 8,
+        }
     },
 
     animmatdCircleBackground:{
@@ -99,6 +151,20 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'flex-end',
+        
+        [theme.breakpoints.only('xs')]: {
+            width: '350px',
+            height: '350px',
+        },
+        '@media only screen and (max-width: 375px)': {
+            width: '300px',
+            height: '300px',
+        },
+
+        '@media only screen and (max-width: 320px)': {
+            width: '270px',
+            height: '270px',
+        }
     },
 
     animatedOneText:{
@@ -106,20 +172,51 @@ const useStyles = makeStyles((theme) => ({
         width: '90%', 
         height: '100%',
         margin: 'auto',
-        paddingTop: 60,
+        paddingTop: 100,
         paddingBottom: 60,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         overflow:'hidden',
+        [theme.breakpoints.down('md')]: {
+            height: '400px',
+        },
+        '@media only screen and (max-width: 375px)': {
+            height: '300px',
+        },
+
+        '@media only screen and (max-width: 320px)': {
+            height: '300px',
+        }
+        
     },
     animatedOneInText:{
         color:'rgba(145,198,145,1)',
-        fontSize:20
+        fontSize:20,
+        [theme.breakpoints.only('xs')]: {
+            fontSize: 15,
+        },
+        '@media only screen and (max-width: 375px)': {
+            fontSize: 13,
+        },
+
+        '@media only screen and (max-width: 320px)': {
+            fontSize: 12,
+        }
     },
     animatedOneInText2: {
         color: 'rgba(145,198,145,1)',
-        fontSize: 30
+        fontSize: 30,
+        [theme.breakpoints.only('xs')]: {
+        fontSize: 25,
+        },
+        '@media only screen and (max-width: 375px)': {
+            fontSize: 23,
+        },
+
+        '@media only screen and (max-width: 320px)': {
+            fontSize: 20,
+        }
     },
     animatedOneTextDiv:{
         textAlign:'left',
@@ -135,6 +232,21 @@ const useStyles = makeStyles((theme) => ({
         // borderBottom:'10px solid black',
         // borderRight:'10px solid black',
         // transform:'rotate3d(1, 0, 0, 45deg) '
+        [theme.breakpoints.only('xs')]: {
+            width: '300px',
+            height: '300px',
+        },
+        '@media only screen and (max-width: 375px)': {
+            width: '250px',
+            height: '250px',
+            borderWidth: 9,
+        },
+
+        '@media only screen and (max-width: 320px)': {
+            width: '220px',
+            height: '220px',
+            borderWidth: 8,
+        }
     },
     animatedSmallInside:{
         width:20,
@@ -143,7 +255,18 @@ const useStyles = makeStyles((theme) => ({
         borderRadius:'100%',
         border: '20px solid rgba(145,198,145,1)',
         
-        transform:'translateY(-100%)'
+        transform:'translateY(-100%)',
+        [theme.breakpoints.only('xs')]: {
+            borderWidth:15,
+        },
+        '@media only screen and (max-width: 375px)': {
+            borderWidth: 12,
+        },
+
+        '@media only screen and (max-width: 320px)': {
+            borderWidth: 12,
+        }
+
     },
     animatedSmallDiv:{
         width:"100%",    
@@ -162,7 +285,7 @@ function AnimatedFadeText(){
         'We provide Cloud Services '
     ]
     const secondTextArray = [
-        'We have Mulpile API Services Also',
+        'We have Mulpile API Services',
         'Contact Us for your',
         'We provide new Tech',
         
@@ -414,7 +537,7 @@ const AnimatedOneText = () => {
             // animatedOneBackground.getAnimation()
   
              if(playState=='finished' && !animation.pending && pauseValue != 0){
-                 console.log(animatedOneBackground.getAnimation())
+                // console.log(animatedOneBackground.getAnimation())
             //      animatedOneBackground.getAnimation().play()
             //      setPausevalue((pauseValue) => pauseValue + Math.ceil(animatedOneBackground.getAnimation().currentTime) + 100)
                  animatedOneBackground.animate({
