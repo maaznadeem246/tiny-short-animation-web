@@ -85,9 +85,14 @@ const useStyles = makeStyles((theme) => ({
     },
     arrowButton:{
         fontSize:'2rem',
+        
     },
     arrowButtonBack:{
-        transform:'rotate(180deg)'
+        transform:'rotate(180deg)',
+        [theme.breakpoints.down('xs')]: {
+            width: '0.8em',
+            height: '0.8em'
+        }
     },
 
     smallButtons:{
@@ -102,7 +107,11 @@ const useStyles = makeStyles((theme) => ({
         transition:'opacity 0.4s linear',
         "&:hover":{
             opacity: 1,
-        }
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: 7,
+            height: 7,
+        },
     },
     smallButtonsGroup:{
         display:'flex',
@@ -190,12 +199,15 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('md')]: {
             height: '400px',
         },
+        [theme.breakpoints.down('xs')]: {
+            height: '320px',
+        },
         '@media only screen and (max-width: 375px)': {
-            height: '300px',
+            height: '260px',
         },
 
         '@media only screen and (max-width: 320px)': {
-            height: '300px',
+            height: '230px',
         }
         
     },
@@ -283,10 +295,18 @@ const useStyles = makeStyles((theme) => ({
     },
     mDiv:{
         [theme.breakpoints.down('sm')]: {
-            paddingBottom: 100 
+            paddingBottom: 150 
+        },
+      '@media only screen and (max-width: 375px)': {
+          paddingBottom: 100 
+        },
+
+    },
+    arrowButtonNext:{
+        [theme.breakpoints.down('xs')]: {
+            width:'0.8em',
+            height:'0.8em'
         }
-
-
     }
 
   
@@ -501,7 +521,7 @@ function AnimatedFadeText(){
             <div className={classes.animatedLine}>
                 <div className={classes.animatedBottomDiv}>
                     <div  >
-                        <div className={classes.animatedBottomLine} ><div ref={bottomLine.ref}>Bottom Text</div></div>
+                        <div className={classes.animatedBottomLine} ><div ref={bottomLine.ref}>Tech is Good</div></div>
                     </div>
                     <div className={classes.bottomAandB}>
                             <div className={classes.smallButtonsGroup}>
